@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # Importations
+from datetime import timedelta
+from julien.inet.interface import Interface
 from random import randrange
 from threading import RLock
-from datetime import timedelta
 from time import sleep
 
 import fcntl
@@ -177,34 +178,12 @@ def minuteur(temps):
     print("Driiiiing !!!!")
 
 # Récupérer l'adresse ip
-def recupIp(*interfaces):
+def recupIp():
     """
-    Renvoie l'adresse Ip de la première interface donnée
-    Par défaut utilise 'lo'
+    Renvoie l'adresse Ip de la machine
     """
     
-    if len(interfaces) == 0:
-        interfaces = ['lo']
-    
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    erreurs = []
-    
-    try:
-        for interface in interfaces:
-            try:
-                return socket.inet_ntoa(fcntl.ioctl(sock.fileno(), 0x8915, struct.pack("256s", interface.encode("utf-8")))[20:24])
-            
-            except OSError as err:
-                if err.errno in [19, 99]:
-                    erreurs.append(err)
-                    continue
-                
-                raise
-        
-        raise erreurs[0]
-    
-    finally:
-       sock.close()
+    return str(Interface.recuperer_config()[-1].adresse)
 
 # Fichiers
 def joinext(nom, ext):

@@ -11,7 +11,7 @@ def identifiant_processus():
     
     if not hasattr(proc, "gardien_id"):
         proc.gardien_id = "{:02x}{:02x}{:02x}{:02x}-{pid:04x}-{epoch:016x}".format(
-            *([int(x) for x in recupIp("eth0", "wlan0", "lo").split(".")]),
+            *([int(x) for x in recupIp().split(".")]),
             pid=proc.pid,
             epoch=int(time.time() * pow(10,7))
         )

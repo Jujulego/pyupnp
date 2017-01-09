@@ -92,7 +92,7 @@ class DecouverteCommande(BaseCommande):
             args.st = "urn:" + args.nom_domaine + ":service:" + args.st + ":" + str(args.version)
         
         try:
-            client = Client(recupIp('wlp4s0', 'enp5s0f1'))
+            client = Client(recupIp())
             client.lancer('decouverte', args)
         
         finally:

@@ -12,6 +12,7 @@ import socket
 BASE_DIR  = path.dirname(__file__)
 HOST_NAME = socket.gethostname()
 VERSION   = "1.0.1"
+LOG       = True
 
 RESEAU = "maison"
 

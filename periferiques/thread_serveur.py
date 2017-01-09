@@ -67,19 +67,23 @@ class PerifServeurThread(ThreadLogMixin, th.Thread):
             self.serveur.shutdown()
             self.serveur.server_close()
         
-        tp  = PourcentageChargement("Arrêt de la gestion des périfériques")
+        if helper.LOG:
+            self.info("Arrêt de la gestion des périfériques")
+        else:
+            tp = PourcentageChargement("Arrêt de la gestion des périfériques")
+            tp.start()
+            i = 0
+        
         ths = [t for t in th.enumerate() if getattr(t, "marque", None) == "perif"]
-        
-        tp.start()
-        i = 0
-        
         for t in ths:
             t.arreter()
             
-            i += 1
-            tp.etat = i/len(ths)
+            if not helper.LOG:
+                i += 1
+                tp.etat = i/len(ths)
         
-        tp.arreter()
+        if not helper.LOG:
+            tp.arreter()
 
 class Periferiques(ThreadLogMixin):
     # Atrributs
@@ -96,8 +100,11 @@ class Periferiques(ThreadLogMixin):
         self._thread.start()
         self.info("Gestion des périfériques lancée")
         
-        ta = AnimationChargement("Chargement des données")
-        ta.start()
+        if helper.LOG:
+            self.info("Chargement des données")
+        else:
+            ta = AnimationChargement("Chargement des données")
+            ta.start()
         
         liste = [(l["id"].valeur, l["uuid"].valeur) for l in helper.stock["periferiques"]["liste"].contenu.lignes()]
         liste.sort()
@@ -106,7 +113,8 @@ class Periferiques(ThreadLogMixin):
             PeriferiqueDistant(uuid)
         
         self._chg_event.clear()
-        ta.arreter()
+        if not helper.LOG:
+            ta.arreter()
     
     def arreter(self):
         self._thread.arreter()

@@ -69,7 +69,7 @@ class ListeCommande(BaseCommande):
              if args.serveur != "":
                  client = Client(args.serveur)
              else:
-                 client = Client(recupIp('wlp4s0', 'enp5s0f1'))
+                 client = Client(recupIp())
              
              client.lancer('liste', args)
                 
@@ -77,4 +77,3 @@ class ListeCommande(BaseCommande):
             Gardien().arreter(False)
 
 LigneCommande.commandes.append(ListeCommande)
-

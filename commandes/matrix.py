@@ -39,7 +39,7 @@ class MatrixCommande(BaseCommande):
     
     # Méthodes
     def executer(self, args):
-        c = Client(recupIp('wlp4s0', 'enp5s0f1'), helper.PORT_PARTAGE)
+        c = Client(recupIp(), helper.PORT_PARTAGE)
         c.lancer("matrix", args)
 
 LigneCommande.commandes.append(MatrixCommande)

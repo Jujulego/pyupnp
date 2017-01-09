@@ -21,7 +21,7 @@ class TCPThread(BaseThread):
     def __init__(self, port, queue, pipe):
         self.queue = queue
         self.pipe = pipe
-        self.adresse = AdresseIP(recupIp("wlan0", "eth0", "lo"), port, False)
+        self.adresse = AdresseIP(recupIp(), port, False)
         
         super(TCPThread, self).__init__(name="TCPThread " + identifiant_processus())
     
