@@ -26,7 +26,7 @@ class SSDPMSearch(SSDPRequete):
     
     # Regex
     _re_st_uuid = re.compile(r"^uuid:(?P<uuid>.+?)$", re.IGNORECASE)
-    _re_st_urn  = re.compile(r"^urn:(?P<nom_domaine>[^:]+):(?P<objet>(device)|(service)):(?P<type>[^:]+):(?P<version>[0-9]+)$", re.IGNORECASE)
+    _re_st_urn  = re.compile(r"^urn:(?P<nom_domaine>[^:]+):(?P<objet>(device)|(service)):(?P<type>.+):(?P<version>[0-9]+)$", re.IGNORECASE)
     
     # Méthodes spéciales
     @verif_type(requete=(bytes, type(None)), ip_client=(tuple, type(None)), donnees=(dict, type(None)))
@@ -45,7 +45,7 @@ class SSDPMSearch(SSDPRequete):
     
     def __repr__(self):
         try:
-            return "<SSDPMSearch de {0[0]}:{0[1]} le {1}>".format(self.adresseClient, self.dateReception)
+            return "<SSDPMSearch de {0[0]}:{0[1]} st={1}>".format(self.adresseClient, self.st)
         
         except AttributeError:
             return "<SSDPMSearch st='{0}'>".format(self.st)
@@ -252,10 +252,10 @@ class SSDPReponseMSearch(SSDPRequete):
     
     # Regex
     _re_st_uuid = re.compile(r"^uuid:(?P<uuid>.+?)$", re.IGNORECASE)
-    _re_st_urn  = re.compile(r"^urn:(?P<nom_domaine>.+?):(?P<objet>(device)|(service)):(?P<type>[^:]+):(?P<version>[0-9]+)$", re.IGNORECASE)
+    _re_st_urn  = re.compile(r"^urn:(?P<nom_domaine>.+?):(?P<objet>(device)|(service)):(?P<type>.+):(?P<version>[0-9]+)$", re.IGNORECASE)
     
     _re_usn = re.compile(r"^uuid:(?P<uuid>.+?)(::upnp:rootdevice)?$", re.IGNORECASE)
-    _re_usn_urn  = re.compile(r"^uuid:(?P<uuid>.+?)::urn:(?P<nom_domaine>[^:]+):(?P<objet>(device)|(service)):(?P<type>[^:]+):(?P<version>[0-9]+)$", re.IGNORECASE)
+    _re_usn_urn  = re.compile(r"^uuid:(?P<uuid>.+?)::urn:(?P<nom_domaine>[^:]+):(?P<objet>(device)|(service)):(?P<type>.+):(?P<version>[0-9]+)$", re.IGNORECASE)
     
     _re_cachecontrol = re.compile(r"^max-age ?= ?(?P<maxage>[0-9]+)", re.IGNORECASE)
     

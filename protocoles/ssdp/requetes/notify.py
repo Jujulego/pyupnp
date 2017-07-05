@@ -33,10 +33,10 @@ class SSDPNotify(SSDPRequete):
     
     # Regex
     _re_nt_uuid = re.compile(r"^uuid:(?P<uuid>.+)$", re.IGNORECASE)
-    _re_nt_urn  = re.compile(r"^urn:(?P<nom_domaine>.+):(?P<objet>(device)|(service)):(?P<type>[^:]+):(?P<version>[0-9]+)$", re.IGNORECASE)
+    _re_nt_urn  = re.compile(r"^urn:(?P<nom_domaine>.+):(?P<objet>(device)|(service)):(?P<type>.+):(?P<version>[0-9]+)$", re.IGNORECASE)
     
     _re_usn = re.compile(r"^uuid:(?P<uuid>.+?)(::upnp:rootdevice)?$", re.IGNORECASE)
-    _re_usn_urn  = re.compile(r"^uuid:(?P<uuid>.+?)::urn:(?P<nom_domaine>[^:]+):(?P<objet>(device)|(service)):(?P<type>[^:]+):(?P<version>[0-9]+)$", re.IGNORECASE)
+    _re_usn_urn  = re.compile(r"^uuid:(?P<uuid>.+?)::urn:(?P<nom_domaine>[^:]+):(?P<objet>(device)|(service)):(?P<type>.+):(?P<version>[0-9]+)$", re.IGNORECASE)
     
     _re_cachecontrol = re.compile(r"^max-age ?= ?(?P<maxage>[0-9]+)", re.IGNORECASE)
     
