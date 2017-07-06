@@ -1,0 +1,18 @@
+[Unit]
+Description=pyUPnP
+After=local-fs.target network.target
+
+[Service]
+Type=simple
+
+User=julien
+Group=julien
+UMask=007
+
+ExecStart=/home/julien/git/pyupnp/pyupnp.py serveur -r maison
+
+TimeoutStopSec=300
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

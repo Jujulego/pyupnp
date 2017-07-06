@@ -61,8 +61,6 @@ class PerifHandler(ThreadLogMixin, BaseRequestHandler):
                     
                     self.perifs.objet.ajouter_valeurs(uuid=uuid, id=id_p, periferique=PeriferiqueStock(uuid, id_p, event))
                     self.server.liste.queue.put(("ajout", [], {"uuid": uuid, "id_p": id_p}))
-        
-        return None
     
     @verif_type(uuid=(int, str))
     def existe_perif(self, uuid):

@@ -1,6 +1,7 @@
 # Importations
 from .base import BaseAction
 
+from base.utils import genererTableau
 from periferiques import PeriferiqueDistant
 
 from datetime import datetime
@@ -17,10 +18,13 @@ class PerifAction(BaseAction):
         
         try:
             if not self.args.uuid:
-                infos = PeriferiqueDistant(int(self.args.identifiant)).infos
+            	perif = PeriferiqueDistant(int(self.args.identifiant))
             
             else:
-                infos = PeriferiqueDistant(self.args.identifiant).infos
+                perif = PeriferiqueDistant(self.args.identifiant)
+            
+            infos = perif.infos
+            servs = perif.services
         
         except IndexError:
             self.afficher("Le périférique {} est inconnu.".format(str(self.args.identifiant)))
@@ -37,6 +41,22 @@ class PerifAction(BaseAction):
         for n, v in infos.items():
             if not n in ("perifs inclus", "services", "icones"):
                 self.afficher(("  │ {:<" + str(taille_nom) + "} : {}").format(n, v))
+        
+        self.afficher("")
+        
+        # Services
+        self.afficher("  Services : ")
+        if len(servs) != 0:
+        	tab = genererTableau(
+        		[s.infos for s in servs],
+        		["identifiant", "type", "version", "namespaceId", "namespaceType"]
+        	)
+        	
+        	for l in tab.splitlines():
+        		self.afficher("    " + l)
+        
+        else:
+            self.afficher("    aucuns !")
         
         self.afficher("")
         
